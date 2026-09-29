@@ -7,6 +7,10 @@
     <title>Estacionamento Fatec</title>
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Sweet Alert -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Script do projeto --> 
+     <script src="js/script.js" defer></script> <!-- o defer indica que o arquivo será carregado após toda a página ser carregada-->
 </head>
 
 <body class="bg-purple-400">
@@ -91,27 +95,12 @@
                             <th class="p-3">Opções</th>
                         </tr>
                     </thead>
-                    <tbody>
-                       <tr class="bg-orange-200 text-black">
-                           <td><img src="images/celta.jpg" title="Celta" alt="Celta 2015" class="w-40 rounded"></td>
-                           <td>Chevrolet</td>
-                           <td>Celta</td>
-                           <td>24900,00</td>
-                           <td>Não</td>
-                           <td></td>
-                       </tr>
-                       <tr class="bg-purple-400 text-black">
-                           <td>
-                            <div class="w-40 h-32 rounded bg-gray-200 text-xs flex items-center justify-center">Sem foto</div> 
-                           </td>
-                           <td>Vw</td>
-                           <td>Fusca</td>
-                           <td>14700,00</td>
-                           <td>Não</td>
-                           <td></td>
-                       </tr>
+                    <tbody id="tabelaVeiculos">
                     </tbody>
                 </table>
+                <p id="mensagemVazia" class="p-6 text-center text-gray-700">
+                    Nenhum veículo cadastrado.
+                </p>
             </section>
         </div>
     </main>
