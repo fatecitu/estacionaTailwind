@@ -26,6 +26,46 @@ function abrirBanco(){
         requisicao.onerror = () => reject(requisicao.error)
     })
 }
+const bancoPronto = abrirBanco()
+/* Salva um veiculo */
+async function salvarVeiculo(veiculo){
+    const banco = await bancoPronto
+    return new Promise((resolve, reject) => {
+        const requisicao = banco.transaction(NOME_STORE, 'readwrite').objectStore(NOME_STORE).add(veiculo)
+        requisicao.onsuccess = () => resolve(requisicao.result)
+        requisicao.onerror = () => reject(requisicao.error)
+    })
+}
+/* verifica o submit do formulário*/
+formVeiculo.addEventListener('submit', async(evento) => {
+    evento.preventDefault() //evita recarregar
+    const arquivo = document.querySelector('#foto').files[0]
+    const veiculo = {
+        marca: document.querySelector('#marca').value,
+        modelo: document.querySelector('#modelo').value.trim(),
+        ano: Number(document.querySelector('#ano').value),
+        preco: Number(document.querySelector('#preco').value),
+        eletrico: document.querySelector('#eletrico').checked,
+        foto: arquivo || null,
+        criadoEm: new Date().toISOString()
+    }
+    try {
+        await salvarVeiculo(veiculo) //tentamos salvar
+        formVeiculo.reset() //limpamos o form
+        Swal.fire({title:'Cadastrado!',
+            text: 'O veiculo foi salvo com sucesso',
+            icon: 'success',
+            timer: 2000})
+    } catch (erro){
+        Swal.fire({
+            title: 'Erro', 
+            text: erro.message||'Não foi possível salvar o veículo.', 
+            icon: 'error',
+            timer: 6000 //6000ms ou 6s
+    })
+    }
+});
+
 /* Inicializa o banco */
 (async function inicializar() {
     try{
